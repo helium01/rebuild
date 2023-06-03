@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AwalActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="selamat datang di"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_admin_panel_settings_24" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:text="masuk"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="0dp"
+            android:text="daftar" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-15dp"
+            android:padding="0dp"
+            android:text="anda ingin \nbergabung dengan kami\n daftarkan outlite anda\n"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btn_register_otlite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:background="@android:color/transparent"
+            android:text="daftar sekarang..!"
+            android:textColor="#100" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
