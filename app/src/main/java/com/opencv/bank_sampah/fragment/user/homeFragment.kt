@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
+import com.opencv.bank_sampah.activity.user.*
 import com.opencv.bank_sampah.helper.SharePref
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,10 +39,13 @@ class homeFragment : Fragment() {
     }
 
     lateinit var s: SharePref
-    lateinit var btnlogout: Button
     lateinit var viewnama: TextView
-    lateinit var email: TextView
-    lateinit var role: TextView
+    lateinit var jemput: CardView
+    lateinit var sedekah: CardView
+    lateinit var peta: CardView
+    lateinit var list_bank: CardView
+    lateinit var kategori: CardView
+    lateinit var riwayat: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,19 +56,40 @@ class homeFragment : Fragment() {
         init(view)
         s= SharePref(requireActivity())
         setData()
-
+        setInitLayout()
         return view
     }
     private fun setData() {
         viewnama.text=s.getString(s.name)
-        email.text=s.getString(s.email)
-        role.text=s.getString(s.role)
     }
     private fun init(view: View){
-        btnlogout=view.findViewById(R.id.btn_logout)
-        viewnama=view.findViewById(R.id.name_textview)
-        email=view.findViewById(R.id.email_textview)
-        role=view.findViewById(R.id.role_textview)
+        viewnama=view.findViewById(R.id.name_view)
+        jemput=view.findViewById(R.id.jemput)
+        sedekah=view.findViewById(R.id.sedekah)
+        peta=view.findViewById(R.id.peta)
+        list_bank=view.findViewById(R.id.list_bank)
+        kategori=view.findViewById(R.id.kategori)
+        riwayat=view.findViewById(R.id.riwayat)
+    }
+    private fun setInitLayout() {
+        jemput.setOnClickListener {
+            startActivity(Intent(activity, JemputActivity::class.java))
+        }
+        sedekah.setOnClickListener {
+            startActivity(Intent(activity, SedekahActivity::class.java))
+        }
+        peta.setOnClickListener {
+            startActivity(Intent(activity, PetaActivity::class.java))
+        }
+        list_bank.setOnClickListener {
+            startActivity(Intent(activity, ListBankActivity::class.java))
+        }
+        kategori.setOnClickListener {
+            startActivity(Intent(activity, KategoriActivity::class.java))
+        }
+        riwayat.setOnClickListener {
+            startActivity(Intent(activity, RiwayatActivity::class.java))
+        }
     }
 
     companion object {

@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         s =SharePref(this)
         if(s.getStatusLogin()){
-            if(s.getString(s.role)=="User"){
+            if(s.getString(s.role)=="user"){
                 setContentView(R.layout.activity_main)
                 Log.e("masuk sini",s.getString(s.role))
                 setButtonNav()
-            }else if(s.getString(s.role)=="Admin_outlite"){
+            }else if(s.getString(s.role)=="admin_outlite"){
                 val intent= Intent(this@MainActivity, InpurOutliteActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
                 startActivity(intent)
