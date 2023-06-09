@@ -17,15 +17,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.app.ApiConfig
 import com.opencv.bank_sampah.app.ApiService
 import com.opencv.bank_sampah.helper.SharePref
-import com.opencv.bank_sampah.model.request.inputOutliteRequest
-import com.opencv.bank_sampah.model.request.userRequest
-import com.opencv.bank_sampah.model.response.inputOutliteResponse
-import com.opencv.bank_sampah.model.response.userResponse
 import retrofit2.Call
 import retrofit2.Response
 

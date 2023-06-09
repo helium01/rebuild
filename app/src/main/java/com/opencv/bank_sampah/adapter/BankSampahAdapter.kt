@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.opencv.bank_sampah.R
-import com.opencv.bank_sampah.model.data.BankSampah
 
 class BankSampahAdapter(private val context: Context, private val bankSampahList: List<BankSampah>) :
     BaseAdapter() {

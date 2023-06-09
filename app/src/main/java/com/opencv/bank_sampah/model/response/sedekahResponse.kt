@@ -3,7 +3,7 @@ package com.opencv.bank_sampah.model.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class outliteResponse {
+class sedekahResponse {
     @SerializedName("data")
     @Expose
     var data:sedekah?=null
@@ -21,17 +21,21 @@ class outliteResponse {
         @Expose
         var id_user:Int?=null
 
-        @SerializedName("nama_outlite")
+        @SerializedName("id_outlite")
         @Expose
-        var nama_outlite:Int?=null
+        var id_outlite:Int?=null
 
-        @SerializedName("alamat")
+        @SerializedName("nama_sampah")
         @Expose
-        var alamat:Int?=null
+        var nama_sampah:String?=null
 
-        @SerializedName("status")
+        @SerializedName("foto")
         @Expose
-        var status:String?=null
+        var foto:String?=null
+
+        @SerializedName("opsi")
+        @Expose
+        var opsi:String?=null
 
         @SerializedName("lat")
         @Expose
@@ -41,5 +45,8 @@ class outliteResponse {
         @Expose
         var lng:Double?=null
 
+        @SerializedName("status")
+        @Expose
+        var status:String?=null
     }
 }

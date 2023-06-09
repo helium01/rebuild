@@ -3,14 +3,16 @@ package com.opencv.bank_sampah.model.request
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class requestSedekah {
+class riwayatRequest {
     @SerializedName("id_user")
     @Expose
-    var id_user:Int?=null
-    @SerializedName("id_sedekah")
+    var id_jemput: Int? = null
+
+    @SerializedName("id_outlite")
     @Expose
-    var jumlah_sampah:Int?=null
+    var koin: Int? = null
+
     @SerializedName("status")
     @Expose
-    var status:String?=null
+    var status: String? = null
 }

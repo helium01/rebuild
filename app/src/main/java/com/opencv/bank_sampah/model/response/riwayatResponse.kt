@@ -3,28 +3,35 @@ package com.opencv.bank_sampah.model.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class koinResponse {
+class riwayatResponse {
     @SerializedName("data")
     @Expose
-    var data:koindata?=null
+    var data:riwayat?=null
 
 //    @SerializedName("access_token")
 //    @Expose
 //    var access_token:String?=null
 
-    class koindata{
+    class riwayat{
         @SerializedName("id")
         @Expose
         var id:String?=null
 
-        @SerializedName("name")
+        @SerializedName("id_jemput")
         @Expose
-        var id_user:String?=null
+        var id_jemput:Int?=null
 
-        @SerializedName("email")
+        @SerializedName("nama")
         @Expose
-        var jumlah_koin:String?=null
+        var nama:Int?=null
 
+        @SerializedName("koin")
+        @Expose
+        var koin:Int?=null
+
+        @SerializedName("status")
+        @Expose
+        var status:String?=null
 
     }
 }

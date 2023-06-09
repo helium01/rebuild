@@ -3,43 +3,47 @@ package com.opencv.bank_sampah.model.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class inputOutliteResponse {
+class jemputResponse {
     @SerializedName("data")
     @Expose
-    var data:inputOutlite?=null
+    var data:jemput?=null
 
 //    @SerializedName("access_token")
 //    @Expose
 //    var access_token:String?=null
 
-    class inputOutlite{
+    class jemput{
         @SerializedName("id")
         @Expose
         var id:String?=null
 
         @SerializedName("id_user")
         @Expose
-        var id_user:String?=null
+        var id_user:Int?=null
 
-        @SerializedName("nama_outlite")
+        @SerializedName("id_outlite")
         @Expose
-        var nama_outlite:String?=null
-
-        @SerializedName("kodepos")
-        @Expose
-        var kodepos:String?=null
-
-        @SerializedName("long")
-        @Expose
-        var long:String?=null
-
-        @SerializedName("lat")
-        @Expose
-        var lat:String?=null
+        var id_outlite:Int?=null
 
         @SerializedName("alamat")
         @Expose
         var alamat:String?=null
 
+        @SerializedName("no_hp")
+        @Expose
+        var no_hp:String?=null
+
+
+        @SerializedName("lat")
+        @Expose
+        var lat:Double?=null
+
+        @SerializedName("lng")
+        @Expose
+        var lng:Double?=null
+
+        @SerializedName("status")
+        @Expose
+        var status:String?=null
     }
 }
