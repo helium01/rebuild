@@ -6,20 +6,26 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewnamaOutlite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/textViewEmail"
+        android:id="@+id/textViewAlamat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="16sp"/>
     <TextView
-        android:id="@+id/textViewRole"
+        android:id="@+id/textViewNoHp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
