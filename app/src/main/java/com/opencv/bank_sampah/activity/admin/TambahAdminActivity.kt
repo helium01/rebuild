@@ -17,6 +17,7 @@ import com.opencv.bank_sampah.app.ApiService
 import com.opencv.bank_sampah.model.data.User
 import com.opencv.bank_sampah.model.data.modeluser
 import com.opencv.bank_sampah.model.response.userResponse
+import com.opencv.bank_sampah.model.response.userResponseGet
 import retrofit2.Call
 import retrofit2.Response
 
@@ -34,24 +35,27 @@ class TambahAdminActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        listView = findViewById(R.id.listViewUserTambah)
+        listView = findViewById(R.id.listViewUsers)
         userAdapter = UserAdapter(this, emptyList())
         listView.adapter = userAdapter
         Log.e("data","data")
-
+        val listViewUsers: ListView = findViewById(R.id.listViewUsers)
         val retro=ApiConfig().retrofitClientInstance().create(ApiService::class.java)
-        retro.lihatUser().enqueue(object : retrofit2.Callback<List<modeluser>>{
-            override fun onResponse(call: Call<List<modeluser>>, response: Response<List<modeluser>>) {
+        retro.lihatUser().enqueue(object : retrofit2.Callback<userResponseGet>{
+            override fun onResponse(call: Call<userResponseGet>, response: Response<userResponseGet>) {
                 if (response.isSuccessful) {
-                    val userResponse = response.body()
-//                    userResponse?.let {
-//                        Log.d("Response", "Users: $it")
-//                    }
-//                    val data = userResponse
-//                    if (data != null) {
-//                        userAdapter.clear()
-//                        userAdapter.addAll(data)
-//                    }
+                    val apiResponse = response.body()
+                    val status = apiResponse?.status
+                    val userList = apiResponse?.data
+
+                    if (userList != null) {
+                        val adapter = UserAdapter(this@TambahAdminActivity, userList)
+                        listViewUsers.adapter = adapter
+                    }
+
+                 else {
+                    // Tangani kesalahan respons API
+                }
 
                     // Lakukan sesuatu dengan token dan data user
 //                    Log.e("data",userResponse.toString())
@@ -61,7 +65,7 @@ class TambahAdminActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<modeluser>>, t: Throwable) {
+            override fun onFailure(call: Call<userResponseGet>, t: Throwable) {
                 Log.e("error",t.message.toString())
             }
 

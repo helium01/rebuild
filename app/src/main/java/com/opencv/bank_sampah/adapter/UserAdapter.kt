@@ -5,30 +5,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.TextView
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.model.data.User
 import com.opencv.bank_sampah.model.data.modeluser
+import com.opencv.bank_sampah.model.response.userResponse
+import com.opencv.bank_sampah.model.response.userResponseGet
+import com.opencv.bank_sampah.model.response.users
 
-class UserAdapter(context: Context, users: List<modeluser>) :
-    ArrayAdapter<modeluser>(context, 0, users) {
+class UserAdapter(private val context: Context, private val userList: List<users>) : BaseAdapter() {
+
+    override fun getCount(): Int {
+        return userList.size
+    }
+
+    override fun getItem(position: Int): Any {
+        return userList[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var view = convertView
-        if (view == null) {
+        val view: View
+        val holder: ViewHolder
+
+        if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.list_item_user, parent, false)
+            holder = ViewHolder()
+            holder.textViewName = view.findViewById(R.id.textViewName)
+            holder.textViewEmail = view.findViewById(R.id.textViewEmail)
+            holder.textViewRole = view.findViewById(R.id.textViewRole)
+            view.tag = holder
+        } else {
+            view = convertView
+            holder = convertView.tag as ViewHolder
         }
 
-        val user = getItem(position)
+        val user = userList[position]
+        holder.textViewName?.text = user.name
+        holder.textViewEmail?.text = user.email
+        holder.textViewRole?.text = user.role
 
-        val nameTextView = view?.findViewById<TextView>(R.id.nameTextView)
-        val emailTextView = view?.findViewById<TextView>(R.id.emailTextView)
-        val roleTextView=view?.findViewById<TextView>(R.id.roleTextView)
+        return view
+    }
 
-        nameTextView?.text = user?.nama
-        emailTextView?.text = user?.email
-        roleTextView?.text = user?.role
-
-        return view!!
+    private class ViewHolder {
+        var textViewName: TextView? = null
+        var textViewEmail: TextView? = null
+        var textViewRole: TextView? = null
     }
 }

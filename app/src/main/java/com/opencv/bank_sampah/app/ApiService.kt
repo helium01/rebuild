@@ -7,11 +7,7 @@ import com.opencv.bank_sampah.model.request.registerRequest
 import com.opencv.bank_sampah.model.request.riwayatRequest
 import com.opencv.bank_sampah.model.request.sedekahRequest
 import com.opencv.bank_sampah.model.request.userRequest
-import com.opencv.bank_sampah.model.response.jemputResponse
-import com.opencv.bank_sampah.model.response.outliteResponse
-import com.opencv.bank_sampah.model.response.riwayatResponse
-import com.opencv.bank_sampah.model.response.sedekahResponse
-import com.opencv.bank_sampah.model.response.userResponse
+import com.opencv.bank_sampah.model.response.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -100,7 +96,7 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("lihat/user")
     fun lihatUser(
-    ): Call<List<modeluser>>
+    ): Call<userResponseGet>
 
     @Headers("Content-Type: application/json")
     @GET("ganti/user/role/{id}")
