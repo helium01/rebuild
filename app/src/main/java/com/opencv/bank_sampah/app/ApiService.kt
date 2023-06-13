@@ -1,5 +1,7 @@
 package com.opencv.bank_sampah.app
 
+import com.opencv.bank_sampah.model.data.User
+import com.opencv.bank_sampah.model.data.modeluser
 import com.opencv.bank_sampah.model.request.outliteRequest
 import com.opencv.bank_sampah.model.request.registerRequest
 import com.opencv.bank_sampah.model.request.riwayatRequest
@@ -98,7 +100,7 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("lihat/user")
     fun lihatUser(
-    ): Call<userResponse>
+    ): Call<List<modeluser>>
 
     @Headers("Content-Type: application/json")
     @GET("ganti/user/role/{id}")

@@ -21,6 +21,8 @@ import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.app.ApiConfig
 import com.opencv.bank_sampah.app.ApiService
 import com.opencv.bank_sampah.helper.SharePref
+import com.opencv.bank_sampah.model.request.outliteRequest
+import com.opencv.bank_sampah.model.response.outliteResponse
 import retrofit2.Call
 import retrofit2.Response
 
@@ -72,18 +74,18 @@ class InpurOutliteActivity : AppCompatActivity() {
             return
         }
         pb.visibility= View.VISIBLE
-        val request = inputOutliteRequest()
+        val request = outliteRequest()
         if (id_user != null) {
             request.id_user=id_user.toInt()
         }
         request.nama_outlite=nama_outlite.text.toString().trim()
-        request.kodepos=kodepos.text.toString().trim()
+//        request.kodepos=kodepos.text.toString().trim()
         request.lat=lat.text.toString().toDouble()
-        request.long=lat.text.toString().toDouble()
+        request.lng=lat.text.toString().toDouble()
         request.alamat=alamat.text.toString().trim()
         val retro= ApiConfig().retrofitClientInstance().create(ApiService::class.java)
-        retro.outlets(request).enqueue(object : retrofit2.Callback<inputOutliteResponse> {
-            override fun onResponse(call: Call<inputOutliteResponse>, response: Response<inputOutliteResponse>) {
+        retro.outlite(request).enqueue(object : retrofit2.Callback<outliteResponse> {
+            override fun onResponse(call: Call<outliteResponse>, response: Response<outliteResponse>) {
                 pb.visibility= View.GONE
                 if (response.isSuccessful) {
                     val userResponse = response.body()
@@ -102,7 +104,7 @@ class InpurOutliteActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<inputOutliteResponse>, t: Throwable) {
+            override fun onFailure(call: Call<outliteResponse>, t: Throwable) {
                 pb.visibility= View.GONE
                 Log.e("error",t.message.toString())
             }

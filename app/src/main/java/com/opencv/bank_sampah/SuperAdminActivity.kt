@@ -9,14 +9,12 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.opencv.bank_sampah.fragment.admin.akunFragment
 import com.opencv.bank_sampah.fragment.admin.homeFragment
-import com.opencv.bank_sampah.fragment.admin.notifikasiFragment
 import com.opencv.bank_sampah.helper.SharePref
 
 class SuperAdminActivity : AppCompatActivity() {
 
     private val FragmentHome : Fragment = homeFragment()
     private val FragmentAkun : Fragment = akunFragment()
-    private val FragmentNotifikasi : Fragment = notifikasiFragment()
     private val fm : FragmentManager = supportFragmentManager
     private var active : Fragment = FragmentHome
     private lateinit var menu : Menu
@@ -34,7 +32,6 @@ class SuperAdminActivity : AppCompatActivity() {
     fun setButtonNav(){
         fm.beginTransaction().add(R.id.container1,FragmentHome).show(FragmentHome).commit()
         fm.beginTransaction().add(R.id.container1,FragmentAkun).hide(FragmentAkun).commit()
-        fm.beginTransaction().add(R.id.container1,FragmentNotifikasi).hide(FragmentNotifikasi).commit()
 
         bottomNavigationView=findViewById(R.id.nav_view)
         menu=bottomNavigationView.menu
@@ -46,11 +43,8 @@ class SuperAdminActivity : AppCompatActivity() {
                 R.id.navigation_home->{
                     panggilfragment(0,FragmentHome)
                 }
-                R.id.navigation_notifisasi->{
-                    panggilfragment(3,FragmentNotifikasi)
-                }
                 R.id.navigation_akun->{
-                    panggilfragment(4,FragmentAkun)
+                    panggilfragment(1,FragmentAkun)
                 }
 
             }

@@ -1,11 +1,24 @@
 package com.opencv.bank_sampah.fragment.admin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.opencv.bank_sampah.R
+import com.opencv.bank_sampah.activity.admin.InformasiActivity
+import com.opencv.bank_sampah.activity.admin.RequestOutliteActivity
+import com.opencv.bank_sampah.activity.admin.TambahAdminActivity
+import com.opencv.bank_sampah.activity.user.JemputActivity
+import com.opencv.bank_sampah.activity.user.KategoriActivity
+import com.opencv.bank_sampah.activity.user.ListBankActivity
+import com.opencv.bank_sampah.activity.user.PetaActivity
+import com.opencv.bank_sampah.activity.user.RiwayatActivity
+import com.opencv.bank_sampah.activity.user.SedekahActivity
+import com.opencv.bank_sampah.helper.SharePref
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,13 +42,44 @@ class homeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    lateinit var s: SharePref
+    lateinit var viewnama: TextView
+    lateinit var tambahAdmin: CardView
+    lateinit var requestOutlite: CardView
+    lateinit var informasi: CardView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ):View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_super_admin_home, container, false)
+        val view: View=inflater.inflate(R.layout.fragment_super_admin_home, container, false)
+        init(view)
+        s= SharePref(requireActivity())
+        setData()
+        setInitLayout()
+        return view
+    }
+    private fun setData() {
+        viewnama.text=s.getString(s.name)
+    }
+
+    private fun init(view: View){
+        viewnama=view.findViewById(R.id.name_view)
+        tambahAdmin=view.findViewById(R.id.tambahAdmin)
+        requestOutlite=view.findViewById(R.id.requestOutlite)
+        informasi=view.findViewById(R.id.informasi)
+    }
+
+    private fun setInitLayout() {
+        tambahAdmin.setOnClickListener {
+            startActivity(Intent(activity, TambahAdminActivity::class.java))
+        }
+        requestOutlite.setOnClickListener {
+            startActivity(Intent(activity, RequestOutliteActivity::class.java))
+        }
+        informasi.setOnClickListener {
+            startActivity(Intent(activity, InformasiActivity::class.java))
+        }
     }
 
     companion object {

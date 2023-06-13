@@ -13,7 +13,6 @@ import com.opencv.bank_sampah.helper.SharePref
 class AdminOutliteActivity : AppCompatActivity() {
     private val FragmentHome : Fragment = homeFragment()
     private val FragmentAkun : Fragment = akunFragment()
-    private val FragmentNotifikasi : Fragment = notifikasiFragment()
     private val fm : FragmentManager = supportFragmentManager
     private var active : Fragment = FragmentHome
     private lateinit var menu : Menu
@@ -24,7 +23,7 @@ class AdminOutliteActivity : AppCompatActivity() {
     private lateinit var s: SharePref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_outlite)
+        setContentView(R.layout.activity_super_admin)
 
         setButtonNav()
     }
@@ -32,7 +31,6 @@ class AdminOutliteActivity : AppCompatActivity() {
     fun setButtonNav(){
         fm.beginTransaction().add(R.id.container1,FragmentHome).show(FragmentHome).commit()
         fm.beginTransaction().add(R.id.container1,FragmentAkun).hide(FragmentAkun).commit()
-        fm.beginTransaction().add(R.id.container1,FragmentNotifikasi).hide(FragmentNotifikasi).commit()
 
         bottomNavigationView=findViewById(R.id.nav_view)
         menu=bottomNavigationView.menu
@@ -44,11 +42,8 @@ class AdminOutliteActivity : AppCompatActivity() {
                 R.id.navigation_home->{
                     panggilfragment(0,FragmentHome)
                 }
-                R.id.navigation_notifisasi->{
-                    panggilfragment(1,FragmentNotifikasi)
-                }
                 R.id.navigation_akun->{
-                    panggilfragment(2,FragmentAkun)
+                    panggilfragment(1,FragmentAkun)
                 }
 
             }

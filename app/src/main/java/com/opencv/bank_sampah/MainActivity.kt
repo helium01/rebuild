@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                setContentView(R.layout.activity_super_admin)
+                val intent= Intent(this@MainActivity, SuperAdminActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
+                startActivity(intent)
+                finish()
                 Log.e("masuksini",s.getString(s.role))
             }
         }else{

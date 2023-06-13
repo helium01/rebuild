@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.adapter.BankSampahAdapter
+import com.opencv.bank_sampah.model.data.BankSampah
 
 class ListBankActivity : AppCompatActivity() {
     private lateinit var locationManager: LocationManager
