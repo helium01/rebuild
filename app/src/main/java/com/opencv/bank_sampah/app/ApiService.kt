@@ -46,7 +46,7 @@ interface ApiService {
     ): Call<outliteResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("outlite")
+    @POST("outlites")
     fun outlite(
         @Body request: outliteRequest
     ): Call<outliteResponse>
@@ -107,12 +107,12 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("index/belum/valid")
     fun indexBelumValid(
-    ): Call<userResponse>
+    ): Call<List<outliteResponseGet>>
 
     @Headers("Content-Type: application/json")
     @GET("index/sudah/valid/{id}")
     fun indexSudahValid(
-        @Path("id") id: String
-    ): Call<userResponse>
+        @Path("id") id: Int
+    ): Call<List<outliteResponseGet>>
 
 }

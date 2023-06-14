@@ -32,42 +32,22 @@
             android:paddingEnd="20dp"
             android:layout_marginBottom="20dp"
             android:maxLines="1"/>
+
         <EditText
-            android:id="@+id/txt_kodepos"
+            android:id="@+id/txt_no_hp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="KodePost"
+            android:hint="No HP"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:layout_marginBottom="20dp"
             android:maxLines="1"/>
 
-            <EditText
-                android:id="@+id/txt_long"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Longitude"
-                android:inputType="textPassword"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:maxLines="1"/>
-        <EditText
-            android:id="@+id/txt_lat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="latitude"
-            android:inputType="textPassword"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:maxLines="1"/>
         <EditText
             android:id="@+id/txt_alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Alamat"
-            android:inputType="textPassword"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:layout_marginBottom="20dp"
@@ -75,7 +55,7 @@
 
 
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_daftar_akun"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

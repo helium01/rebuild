@@ -22,8 +22,6 @@ import retrofit2.Call
 import retrofit2.Response
 
 class TambahAdminActivity : AppCompatActivity() {
-    private lateinit var listView: ListView
-    private lateinit var userAdapter: UserAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_super_admin_tambah_admin)
@@ -35,10 +33,6 @@ class TambahAdminActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        listView = findViewById(R.id.listViewUsers)
-        userAdapter = UserAdapter(this, emptyList())
-        listView.adapter = userAdapter
-        Log.e("data","data")
         val listViewUsers: ListView = findViewById(R.id.listViewUsers)
         val retro=ApiConfig().retrofitClientInstance().create(ApiService::class.java)
         retro.lihatUser().enqueue(object : retrofit2.Callback<userResponseGet>{

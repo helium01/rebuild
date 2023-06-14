@@ -12,6 +12,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -37,37 +38,29 @@ class InpurOutliteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inpur_outlite)
        lokasi()
+        val buttonLokasi= findViewById<Button>(R.id.btn_daftar_akun)
+        buttonLokasi.setOnClickListener {
+            login()
+        }
 
     }
     fun login(){
-        val id_user=s.getUser()?.id
+        val id_user=s.getId()
         val nama_outlite = findViewById<EditText>(R.id.txt_nama_outlite)
-        val kodepos = findViewById<EditText>(R.id.txt_kodepos)
-        val long = findViewById<EditText>(R.id.txt_long)
-        val lat = findViewById<EditText>(R.id.txt_lat)
+//        val kodepos = findViewById<EditText>(R.id.txt_kodepos)
         val pb = findViewById<ProgressBar>(R.id.progres_bar)
         val alamat = findViewById<EditText>(R.id.txt_alamat)
+        val nohp = findViewById<EditText>(R.id.txt_no_hp)
         if(nama_outlite.text.isEmpty()){
             nama_outlite.error="kolom email tidak boleh kosong"
             nama_outlite.requestFocus()
             return
         }
-        if(kodepos.text.isEmpty()){
-            kodepos.error="kolom password tidak boleh kosong"
-            kodepos.requestFocus()
+        if(nohp.text.isEmpty()){
+            nama_outlite.error="kolom no hp tidak boleh kosong"
+            nama_outlite.requestFocus()
             return
         }
-        if(long.text.isEmpty()){
-            long.error="kolom password tidak boleh kosong"
-            long.requestFocus()
-            return
-        }
-        if(lat.text.isEmpty()){
-            lat.error="kolom password tidak boleh kosong"
-            lat.requestFocus()
-            return
-        }
-
         if(alamat.text.isEmpty()){
             alamat.error="kolom password tidak boleh kosong"
             alamat.requestFocus()
@@ -76,13 +69,14 @@ class InpurOutliteActivity : AppCompatActivity() {
         pb.visibility= View.VISIBLE
         val request = outliteRequest()
         if (id_user != null) {
-            request.id_user=id_user.toInt()
+            request.id_user=id_user
         }
         request.nama_outlite=nama_outlite.text.toString().trim()
-//        request.kodepos=kodepos.text.toString().trim()
-        request.lat=lat.text.toString().toDouble()
-        request.lng=lat.text.toString().toDouble()
+        request.no_hp=nohp.text.toString().trim()
+        request.lat=globalLatitude
+        request.lng=globalLongitude
         request.alamat=alamat.text.toString().trim()
+        request.status="belum validasi"
         val retro= ApiConfig().retrofitClientInstance().create(ApiService::class.java)
         retro.outlite(request).enqueue(object : retrofit2.Callback<outliteResponse> {
             override fun onResponse(call: Call<outliteResponse>, response: Response<outliteResponse>) {
@@ -100,7 +94,8 @@ class InpurOutliteActivity : AppCompatActivity() {
                     Log.e("token",data?.nama_outlite.toString())
                 } else {
                     // Tangani error jika permintaan tidak berhasil
-                    Log.e("error","error mas")
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("error", errorBody.toString())
                 }
             }
 
@@ -111,11 +106,13 @@ class InpurOutliteActivity : AppCompatActivity() {
 
         })
     }
-
+    private var globalLatitude: Double = 0.0
+    private var globalLongitude: Double = 0.0
     fun lokasi(){
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
 
         locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
@@ -132,11 +129,13 @@ class InpurOutliteActivity : AppCompatActivity() {
     }
 
     private fun updateLocation(latitude: Double, longitude: Double) {
-        val latitudeTextView = findViewById<TextView>(R.id.txt_lat)
-        val longitudeTextView = findViewById<TextView>(R.id.txt_long)
-        Log.e("latitude",latitudeTextView.toString())
-        latitudeTextView.text = latitude.toString()
-        longitudeTextView.text = longitude.toString()
+//        val latitudeTextView = findViewById<TextView>(R.id.txt_kodepos)
+//        val longitudeTextView = findViewById<TextView>(R.id.txt_long)
+//        Log.e("latitude",latitudeTextView.toString())
+//        latitudeTextView.text = s.getId().toString()
+//        longitudeTextView.text = longitude.toString()
+        globalLatitude=latitude
+        globalLongitude=longitude
     }
 
     @SuppressLint("MissingPermission")
