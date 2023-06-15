@@ -1,5 +1,6 @@
 package com.opencv.bank_sampah.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -86,9 +87,8 @@ class RequestOutliteAdapter(context: Context, private val outlets: List<outliteR
                     override fun onFailure(call: Call<List<outliteResponseGet>>, t: Throwable) {
                         Toast.makeText(context, "Data berhasil diubah", Toast.LENGTH_SHORT).show()
                         // Kembali ke halaman home
-                        val intent = Intent(context, RequestOutliteActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        context.startActivity(intent)
+                        // Memanggil metode recreate() pada aktivitas saat ini untuk merefresh halaman
+                        (context as Activity).recreate()
                     }
 
                 })

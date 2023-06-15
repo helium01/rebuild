@@ -42,14 +42,24 @@
         </activity>
         <activity
             android:name=".activity.admin_outlite.Pencairan_Outlite_Activity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.Bank_sampah.JemputActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.admin_outlite.Jemput_Outlite_Activity"
+            android:exported="false"
+            android:theme="@style/Theme.Bank_sampah.JemputActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".activity.admin_outlite.Sedekah_Outlite_Activity"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.Bank_sampah.JemputActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -83,8 +93,8 @@
             android:exported="false"
             android:theme="@style/Theme.Bank_sampah.JemputActivity">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyDy897GkxfRXnVu2ny6LBClumM2BBBdOc0" />
         </activity>
         <activity
             android:name=".activity.user.SedekahActivity"

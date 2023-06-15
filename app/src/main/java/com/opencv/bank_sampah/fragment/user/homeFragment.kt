@@ -1,7 +1,15 @@
 package com.opencv.bank_sampah.fragment.user
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +17,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.activity.user.*
@@ -46,6 +56,9 @@ class homeFragment : Fragment() {
     lateinit var list_bank: CardView
     lateinit var kategori: CardView
     lateinit var riwayat: CardView
+    lateinit var lokasi: Button
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +83,7 @@ class homeFragment : Fragment() {
         list_bank=view.findViewById(R.id.list_bank)
         kategori=view.findViewById(R.id.kategori)
         riwayat=view.findViewById(R.id.riwayat)
+        lokasi=view.findViewById(R.id.lihatsaya)
     }
     private fun setInitLayout() {
         jemput.setOnClickListener {
@@ -90,9 +104,59 @@ class homeFragment : Fragment() {
         riwayat.setOnClickListener {
             startActivity(Intent(activity, RiwayatActivity::class.java))
         }
+        lokasi.setOnClickListener {
+            getLocation()
+            Log.e("sini","sini")
+        }
+    }
+    private fun getLocation() {
+        // Cek izin lokasi
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Mendapatkan lokasi terkini menggunakan LocationManager
+            val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, object :
+                LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    val gmmIntentUri =
+                        Uri.parse("geo:${latitude},${longitude}?z=15&q=${latitude},${longitude}")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    context?.startActivity(mapIntent)
+                    // Gunakan latitude dan longitude sesuai kebutuhan Anda
+
+                }
+
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onProviderDisabled(provider: String) {}
+            }, null)
+        } else {
+            // Jika izin lokasi belum diberikan, minta izin dari aktivitas induk
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                com.opencv.bank_sampah.fragment.admin_outlet.homeFragment.PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            com.opencv.bank_sampah.fragment.admin_outlet.homeFragment.PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Izin diberikan, panggil fungsi untuk mendapatkan lokasi
+                    getLocation()
+                } else {
+                    // Izin tidak diberikan, tangani kasus ini sesuai kebutuhan Anda
+                    Toast.makeText(requireContext(), "Izin lokasi tidak diberikan", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+        }
     }
 
     companion object {
+        private const val PERMISSION_REQUEST_CODE = 1001
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -3,6 +3,7 @@ package com.opencv.bank_sampah
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -33,32 +34,35 @@ class MainActivity : AppCompatActivity() {
 
     private var status=false
     private lateinit var s: SharePref
-
+    private val SPLASH_TIME_OUT = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_pembuka)
         s =SharePref(this)
-        if(s.getStatusLogin()){
-            if(s.getString(s.role)=="user"){
-                setContentView(R.layout.activity_main)
-                Log.e("masuk sini",s.getString(s.role))
-                setButtonNav()
-            }else if(s.getString(s.role)=="admin_outlite"){
-                val intent= Intent(this@MainActivity, InpurOutliteActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
-                startActivity(intent)
-                finish()
+        Handler().postDelayed({
+            if(s.getStatusLogin()){
+                if(s.getString(s.role)=="user"){
+                    setContentView(R.layout.activity_main)
+                    Log.e("masuk sini",s.getString(s.role))
+                    setButtonNav()
+                }else if(s.getString(s.role)=="admin_outlite"){
+                    val intent= Intent(this@MainActivity, InpurOutliteActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
+                    startActivity(intent)
+                    finish()
+                }else{
+                    val intent= Intent(this@MainActivity, SuperAdminActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
+                    startActivity(intent)
+                    finish()
+                    Log.e("masuksini",s.getString(s.role))
+                }
             }else{
-                val intent= Intent(this@MainActivity, SuperAdminActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
-                startActivity(intent)
-                finish()
-                Log.e("masuksini",s.getString(s.role))
-            }
-        }else{
-            startActivity(Intent(this, AwalActivity::class.java) )
-        }
+                startActivity(Intent(this, AwalActivity::class.java) )
+            } // Menutup halaman awal agar tidak dapat dikembalikan dengan tombol back
+        }, SPLASH_TIME_OUT.toLong())
+
     }
 
     fun setButtonNav(){

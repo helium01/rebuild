@@ -1,11 +1,35 @@
 package com.opencv.bank_sampah.fragment.admin_outlet
 
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
+import com.opencv.bank_sampah.activity.admin.InformasiActivity
+import com.opencv.bank_sampah.activity.admin.RequestOutliteActivity
+import com.opencv.bank_sampah.activity.admin.TambahAdminActivity
+import com.opencv.bank_sampah.activity.admin_outlite.Jemput_Outlite_Activity
+import com.opencv.bank_sampah.activity.admin_outlite.Pencairan_Outlite_Activity
+import com.opencv.bank_sampah.activity.admin_outlite.Sedekah_Outlite_Activity
+import com.opencv.bank_sampah.helper.SharePref
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,16 +53,56 @@ class homeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 1
+    lateinit var s: SharePref
+    lateinit var viewnama: TextView
+    lateinit var pencairan: CardView
+    lateinit var sedekah: CardView
+    lateinit var jemput: CardView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_outlite_home, container, false)
+
+        val view: View=inflater.inflate(R.layout.fragment_admin_outlite_home, container, false)
+        init(view)
+        s= SharePref(requireActivity())
+        setData()
+        setInitLayout()
+
+
+        return view
+    }
+
+
+
+
+    private fun setData() {
+        viewnama.text=s.getString(s.name)
+    }
+    private fun init(view: View){
+        viewnama=view.findViewById(R.id.name_view)
+        pencairan=view.findViewById(R.id.pencairan)
+        sedekah=view.findViewById(R.id.sedekah)
+        jemput=view.findViewById(R.id.jemput)
+    }
+    private fun setInitLayout() {
+        pencairan.setOnClickListener {
+            startActivity(Intent(activity, Pencairan_Outlite_Activity::class.java))
+        }
+        jemput.setOnClickListener {
+            startActivity(Intent(activity, Jemput_Outlite_Activity::class.java))
+        }
+        sedekah.setOnClickListener {
+            startActivity(Intent(activity, Sedekah_Outlite_Activity::class.java))
+        }
+
     }
 
     companion object {
+         val PERMISSION_REQUEST_CODE = 1001
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
