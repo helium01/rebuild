@@ -79,6 +79,7 @@ class RegisterOutliteActivity : AppCompatActivity() {
                     s.setString("name",data?.name.toString())
                     s.setString("role",data?.role.toString())
                     s.setString("email",data?.email.toString())
+                    data?.id?.let { s.setId(it.toInt()) }
                     Toast.makeText(this@RegisterOutliteActivity, "Selamat datang " + data?.name.toString(), Toast.LENGTH_SHORT).show()
                     val intent= Intent(this@RegisterOutliteActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )

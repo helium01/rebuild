@@ -46,6 +46,12 @@ interface ApiService {
     ): Call<outliteResponse>
 
     @Headers("Content-Type: application/json")
+    @GET("outlites/{id}")
+    fun outliteData(
+        @Path("id") id: Int
+    ): Call<outliteResponseData>
+
+    @Headers("Content-Type: application/json")
     @POST("outlites")
     fun outlite(
         @Body request: outliteRequest

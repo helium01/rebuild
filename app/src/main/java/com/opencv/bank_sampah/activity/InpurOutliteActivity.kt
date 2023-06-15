@@ -18,12 +18,18 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.opencv.bank_sampah.AdminOutliteActivity
+import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
+import com.opencv.bank_sampah.adapter.UserAdapter
 import com.opencv.bank_sampah.app.ApiConfig
 import com.opencv.bank_sampah.app.ApiService
 import com.opencv.bank_sampah.helper.SharePref
 import com.opencv.bank_sampah.model.request.outliteRequest
 import com.opencv.bank_sampah.model.response.outliteResponse
+import com.opencv.bank_sampah.model.response.outliteResponseData
+import com.opencv.bank_sampah.model.response.outliteResponseGet
+import com.opencv.bank_sampah.model.response.userResponseGet
 import retrofit2.Call
 import retrofit2.Response
 
@@ -35,6 +41,43 @@ class InpurOutliteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         s = SharePref(this)
+
+        val retro=ApiConfig().retrofitClientInstance().create(ApiService::class.java)
+        retro.outliteData(s.getId()).enqueue(object : retrofit2.Callback<outliteResponseData>{
+            override fun onResponse(call: Call<outliteResponseData>, response: Response<outliteResponseData>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    val status = apiResponse?.status
+                    val userList = apiResponse?.data
+
+                    if(status=="belum validasi"){
+
+                        Toast.makeText(this@InpurOutliteActivity, "Selamat datang " , Toast.LENGTH_SHORT).show()
+                        val intent= Intent(this@InpurOutliteActivity, MenungguAktivasiActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
+                        startActivity(intent)
+                        finish()
+                    }else if(status=="sudah di validasi"){
+                        Toast.makeText(this@InpurOutliteActivity, "Selamat datang " , Toast.LENGTH_SHORT).show()
+                        val intent= Intent(this@InpurOutliteActivity, AdminOutliteActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK )
+                        startActivity(intent)
+                        finish()
+                    }
+                    // Lakukan sesuatu dengan token dan data user
+//                    Log.e("data",userResponse.toString())
+                } else {
+                    // Tangani error jika permintaan tidak berhasil
+                    Log.e("error", response.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<outliteResponseData>, t: Throwable) {
+                Log.e("error",t.message.toString())
+            }
+
+        })
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inpur_outlite)
        lokasi()

@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class outliteResponse {
+    @SerializedName("status")
+    @Expose
+    val status: String?=null
     @SerializedName("data")
     @Expose
     var data:sedekah?=null

@@ -10,6 +10,10 @@ data class outliteResponseGet (
     val lng:Double,
     val lat:Double,
 )
+data class outliteResponseData (
+    val status: String,
+    val data:List<outlites>
+)
 
 
     data class outlites(

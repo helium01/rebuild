@@ -19,4 +19,14 @@
         android:textStyle="italic"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/buttonkeluar"
+        android:layout_marginTop="30dp"
+        android:layout_width="102dp"
+        android:layout_height="67dp"
+        android:text="keluar"
+        android:layout_centerHorizontal="true"
+
+        />
+
 </RelativeLayout>
