@@ -59,6 +59,13 @@ class RequestOutliteAdapter(context: Context, private val outlets: List<outliteR
             viewHolder.buttonLokasi.visibility = View.VISIBLE
             viewHolder.buttonVerifikasi.visibility = View.VISIBLE
 
+            viewHolder.noHpOutletTextView.setOnClickListener {
+                val i = Intent(Intent.ACTION_VIEW)
+                val url = "https://api.whatsapp.com/send?phone=${outlet.no_hp}"
+                i.data = Uri.parse(url)
+                context.startActivity(i)
+            }
+
             viewHolder.buttonLokasi.setOnClickListener{
                 val gmmIntentUri =
                     Uri.parse("geo:${outlet.lat},${outlet.lng}?z=15&q=${outlet.lat},${outlet.lng}")

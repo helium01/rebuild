@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Nama: "/>
+            android:text="Nama outlite: "/>
 
         <TextView
             android:id="@+id/textViewNamaOutlite"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Nama: "/>
+            android:text="Alamat: "/>
 
         <TextView
             android:id="@+id/textViewNamaAlamat"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Nama: "/>
+            android:text="No Telp: "/>
 
         <TextView
             android:id="@+id/textViewNamaNohp"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Nama: "/>
+            android:text="Status: "/>
 
         <TextView
             android:id="@+id/textViewNamaStatus"

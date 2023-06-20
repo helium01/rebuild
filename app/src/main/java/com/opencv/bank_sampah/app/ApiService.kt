@@ -41,9 +41,16 @@ interface ApiService {
     ): Call<jemputResponse>
 
     @Headers("Content-Type: application/json")
-    @GET("outlite")
+    @GET("outlites")
     fun outlite(
-    ): Call<outliteResponse>
+    ): Call<outliteResponseData>
+
+    @Headers("Content-Type: application/json")
+    @GET("cari/outlite/{lat}/{lng}")
+    fun cariOutlites(
+        @Path("lat") lat:Double,
+        @Path("lng") lng:Double,
+    ): Call<carioutliteResponseData>
 
     @Headers("Content-Type: application/json")
     @GET("outlites/{id}")
@@ -76,7 +83,7 @@ interface ApiService {
     ): Call<sedekahResponse>
 
     @Headers("Content-Type: application/json")
-    @GET("jrmput/segera/{id}")
+    @GET("jemput/segera/{id}")
     fun jemputSegera(
         @Path("id") id: String
     ): Call<sedekahResponse>

@@ -8,13 +8,25 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.adapter.BankSampahAdapter
+import com.opencv.bank_sampah.adapter.UserAdapter
+import com.opencv.bank_sampah.app.ApiConfig
+import com.opencv.bank_sampah.app.ApiService
 import com.opencv.bank_sampah.model.data.BankSampah
+import com.opencv.bank_sampah.model.response.carioutliteResponseData
+import com.opencv.bank_sampah.model.response.userResponseGet
+import retrofit2.Call
+import retrofit2.Response
 
 class ListBankActivity : AppCompatActivity() {
     private lateinit var locationManager: LocationManager
@@ -63,14 +75,30 @@ class ListBankActivity : AppCompatActivity() {
             locationListener
         )
 
-        listViewBankSampah = findViewById(R.id.listViewBankSampah)
+    }
+    private fun updateListView(latitude: Double, longitude: Double) {
+        val listViewUsers: ListView = findViewById(R.id.listViewBankSampah)
+        val retro = ApiConfig().retrofitClientInstance().create(ApiService::class.java)
+        retro.cariOutlites(latitude, longitude).enqueue(object : retrofit2.Callback<carioutliteResponseData> {
+            override fun onResponse(call: Call<carioutliteResponseData>, response: Response<carioutliteResponseData>) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    val status = apiResponse?.status
+                    val userList = apiResponse?.data
+                    if (userList != null) {
+                        val adapter = BankSampahAdapter(this@ListBankActivity, userList)
+                        listViewUsers.adapter = adapter
+                        locationManager.removeUpdates(locationListener)
+                    }
+                } else {
+                    Log.e("error", response.errorBody().toString())
+                }
+            }
 
-        // Ambil data dari API dan simpan dalam sebuah List<BankSampah>
-        val bankSampahList = fetchDataFromApi()
-
-        // Inisialisasi adapter dan set sebagai adapter untuk ListView
-        bankSampahAdapter = BankSampahAdapter(this, bankSampahList)
-        listViewBankSampah.adapter = bankSampahAdapter
+            override fun onFailure(call: Call<carioutliteResponseData>, t: Throwable) {
+                Log.e("error", t.message.toString())
+            }
+        })
     }
 
     private val locationListener: LocationListener = object : LocationListener {
@@ -78,8 +106,7 @@ class ListBankActivity : AppCompatActivity() {
             val latitude = location.latitude
             val longitude = location.longitude
             // Gunakan latitude dan longitude sesuai kebutuhan Anda
-            println("Latitude: $latitude")
-            println("Longitude: $longitude")
+            updateListView(latitude,longitude)
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -124,16 +151,5 @@ class ListBankActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-    private fun fetchDataFromApi(): List<BankSampah> {
-        // Implementasi logika untuk mengambil data dari API
-        // dan mengonversinya ke dalam List<BankSampah>
-        // Misalnya, menggunakan Retrofit atau Volley untuk melakukan permintaan API
-        // dan mengurai respons JSON ke dalam List<BankSampah>
-        // Contoh sederhana:
-        return listOf(
-            BankSampah("Bank Sampah A", "dimas", "081234567890", "10km", -6.200000, 106.800000),
-            BankSampah("Bank Sampah B", "joni", "082345678901", "12km", -6.300000, 106.900000),
-            BankSampah("Bank Sampah C", "siti", "083456789012", "20km", -6.400000, 107.000000)
-        )
-    }
+
 }
