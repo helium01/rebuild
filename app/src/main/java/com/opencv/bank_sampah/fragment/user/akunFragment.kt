@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
+import com.opencv.bank_sampah.activity.EditProfilActivity
 import com.opencv.bank_sampah.helper.SharePref
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +37,7 @@ class akunFragment : Fragment() {
     }
     lateinit var s: SharePref
     lateinit var btnlogout: Button
+    lateinit var btnedit: Button
     lateinit var viewnama: TextView
     lateinit var email: TextView
     lateinit var role: TextView
@@ -52,6 +54,9 @@ class akunFragment : Fragment() {
             s.setStatusLogin(false)
             startActivity(Intent(activity, MainActivity::class.java))
         }
+        btnedit.setOnClickListener {
+            startActivity(Intent(activity, EditProfilActivity::class.java))
+        }
         setData()
 
         return view
@@ -66,6 +71,7 @@ class akunFragment : Fragment() {
         viewnama=view.findViewById(R.id.name_textview)
         email=view.findViewById(R.id.email_textview)
         role=view.findViewById(R.id.role_textview)
+        btnedit=view.findViewById(R.id.edit_profile_button)
     }
 
     companion object {

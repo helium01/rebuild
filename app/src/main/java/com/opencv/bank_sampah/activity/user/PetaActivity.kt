@@ -51,6 +51,7 @@ class PetaActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        
 
 
 
@@ -87,10 +88,6 @@ class PetaActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.e("status",globalLatitude.toString())
         var latitud =globalLatitude
         var long =globalLongitude
-        if(globalLongitude==0.0){
-            latitud=-7.916484
-            long=112.634346
-        }
         val retro= ApiConfig().retrofitClientInstance().create(ApiService::class.java)
         retro.cariOutlites(latitud,long).enqueue(object : retrofit2.Callback<carioutliteResponseData>{
             override fun onResponse(call: Call<carioutliteResponseData>, response: Response<carioutliteResponseData>) {
