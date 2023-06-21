@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_baseline_admin_panel_settings_24" />
+        android:src="@drawable/ic_etrash_logo" />
 
     <TextView
         android:id="@+id/login_text"
