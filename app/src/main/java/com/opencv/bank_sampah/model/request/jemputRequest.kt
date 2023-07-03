@@ -16,6 +16,10 @@ class jemputRequest {
     @Expose
     var kategori_sampah: String? = null
 
+    @SerializedName("tanggal")
+    @Expose
+    var tanggal: String? = null
+
     @SerializedName("alamat")
     @Expose
     var alamat: String? = null

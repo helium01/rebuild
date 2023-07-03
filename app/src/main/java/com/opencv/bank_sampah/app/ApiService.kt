@@ -1,18 +1,23 @@
 package com.opencv.bank_sampah.app
 
-import com.opencv.bank_sampah.model.data.User
-import com.opencv.bank_sampah.model.data.modeluser
+import com.opencv.bank_sampah.model.request.jemputRequest
 import com.opencv.bank_sampah.model.request.outliteRequest
 import com.opencv.bank_sampah.model.request.registerRequest
 import com.opencv.bank_sampah.model.request.riwayatRequest
 import com.opencv.bank_sampah.model.request.sedekahRequest
 import com.opencv.bank_sampah.model.request.userRequest
 import com.opencv.bank_sampah.model.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -28,16 +33,23 @@ interface ApiService {
         @Body request: registerRequest
     ): Call<userResponse>
 
-    @Headers("Content-Type: application/json")
-    @POST("sedekah")
-    fun sedekah(
-        @Body request: sedekahRequest
-    ): Call<sedekahResponse>
+//    @Headers("Content-Type: application/json")
+@FormUrlEncoded
+@POST("sedekahs")
+fun sedekah(
+    @Field("idUser") idUser: String,
+    @Field("namaSampah") namaSampah: String,
+    @Field("foto") foto: RequestBody, // Ubah tipe data parameter menjadi RequestBody
+    @Field("opsi") opsi: String,
+    @Field("status") status: String,
+    @Field("lat") lat: String,
+    @Field("lng") lng: String
+): Call<sedekahResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("jemput")
+    @POST("jemputs")
     fun jemput(
-        @Body request: sedekahRequest
+        @Body request: jemputRequest
     ): Call<jemputResponse>
 
     @Headers("Content-Type: application/json")
