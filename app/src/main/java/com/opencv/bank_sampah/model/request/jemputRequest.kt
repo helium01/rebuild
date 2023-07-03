@@ -8,9 +8,6 @@ class jemputRequest {
     @Expose
     var id_user: Int? = null
 
-    @SerializedName("id_outlite")
-    @Expose
-    var id_outlite: Int? = null
 
     @SerializedName("kategori_sampah")
     @Expose
@@ -36,7 +33,4 @@ class jemputRequest {
     @Expose
     var lng: Double? = null
 
-    @SerializedName("status")
-    @Expose
-    var status: String? = null
 }

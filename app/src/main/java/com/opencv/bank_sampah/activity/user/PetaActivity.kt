@@ -145,8 +145,8 @@ class PetaActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 //    untuk menambahkan lokasi saat ini
-    private var globalLatitude: Double = 0.0
-    private var globalLongitude: Double = 0.0
+    private var globalLatitude: Double =-7.916018
+    private var globalLongitude: Double =112.634292
 
 
     private fun updateLocation(latitude: Double, longitude: Double) {

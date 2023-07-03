@@ -14,13 +14,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.opencv.bank_sampah.MainActivity
 import com.opencv.bank_sampah.R
 import com.opencv.bank_sampah.app.ApiConfig
@@ -36,17 +39,32 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class JemputActivity : AppCompatActivity() {
+    private lateinit var selectedRole: String
     private lateinit var s: SharePref
-    private val PERMISSION_REQUEST_CODE = 123
+//    private val PERMISSION_REQUEST_CODE = 123
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
 
 
     private lateinit var editTextTanggal: EditText
+    private val PERMISSION_REQUEST_CODE = 1001
     override fun onCreate(savedInstanceState: Bundle?) {
         s = SharePref(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_jemput)
+
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+        locationListener = object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                val latitude = location.latitude
+                val longitude = location.longitude
+                updateLocation(latitude, longitude)
+            }
+
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+            override fun onProviderEnabled(provider: String) {}
+            override fun onProviderDisabled(provider: String) {}
+        }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -61,12 +79,25 @@ class JemputActivity : AppCompatActivity() {
         editTextTanggal.setOnClickListener {
             showDatePicker()
         }
+        val kategori_sampah = findViewById<Spinner>(R.id.spinnerKategori)
+        kategori_sampah.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                selectedRole = parent.getItemAtPosition(position).toString()
+                // Lakukan sesuatu dengan data yang dipilih oleh pengguna
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                kategori_sampah.requestFocus()
+                return
+            }
+        }
+        lokasi()
 
         buttonSubmit.setOnClickListener {
             // Proses logika pengiriman data atau tindakan yang sesuai
             kirimdata()
         }
-        lokasi()
     }
 
 
@@ -107,7 +138,6 @@ class JemputActivity : AppCompatActivity() {
     }
     fun kirimdata(){
         val id_user = s.getId()
-        val kategori_sampah = findViewById<Spinner>(R.id.spinnerKategori)
         val tanggal=findViewById<EditText>(R.id.editTextTanggal)
         val alamat=findViewById<EditText>(R.id.editTextAlamat)
         val catatan=findViewById<EditText>(R.id.editTextCatatan)
@@ -132,10 +162,11 @@ class JemputActivity : AppCompatActivity() {
         request.alamat=alamat.text.toString().trim()
         request.tanggal=tanggal.text.toString().trim()
         request.id_user=id_user
-        request.catatan=catatan.text.toString()
+        request.catatan=catatan.text.toString().trim()
         request.lat=globalLatitude
         request.lng=globalLongitude
-        request.kategori_sampah=kategori_sampah.textAlignment.toString().trim()
+        Log.e("lat",globalLatitude.toString())
+        request.kategori_sampah=selectedRole.toString().trim()
         val retro= ApiConfig().retrofitClientInstance().create(ApiService::class.java)
         retro.jemput(request).enqueue(object : retrofit2.Callback<jemputResponse> {
             override fun onResponse(call: Call<jemputResponse>, response: Response<jemputResponse>) {
@@ -143,6 +174,7 @@ class JemputActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val userResponse = response.body()
                     val data = userResponse?.data
+                    Log.e("status",data.toString())
 //                    val token = userResponse?.access_token
                     data?.id?.let { s.setId(it.toInt()) }
                     Toast.makeText(this@JemputActivity, "Selamat datang " , Toast.LENGTH_SHORT).show()
@@ -153,7 +185,8 @@ class JemputActivity : AppCompatActivity() {
                     // Lakukan sesuatu dengan token dan data user
                 } else {
                     // Tangani error jika permintaan tidak berhasil
-                    Log.e("error","error mas")
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("error", errorBody ?: "Unknown error")
                 }
             }
 
@@ -166,39 +199,50 @@ class JemputActivity : AppCompatActivity() {
     }
     private var globalLatitude: Double = 0.0
     private var globalLongitude: Double = 0.0
-    fun lokasi(){
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        fun lokasi(){
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
 
-        locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                val latitude = location.latitude
-                val longitude = location.longitude
+            locationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
 
-                updateLocation(latitude, longitude)
+                    updateLocation(latitude, longitude)
+                }
+
+                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onProviderDisabled(provider: String) {}
             }
-
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-            override fun onProviderEnabled(provider: String) {}
-            override fun onProviderDisabled(provider: String) {}
         }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        requestLocationUpdates()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        locationManager.removeUpdates(locationListener)
     }
 
     private fun updateLocation(latitude: Double, longitude: Double) {
-//        val latitudeTextView = findViewById<TextView>(R.id.txt_kodepos)
-//        val longitudeTextView = findViewById<TextView>(R.id.txt_long)
-//        Log.e("latitude",latitudeTextView.toString())
-//        latitudeTextView.text = s.getId().toString()
-//        longitudeTextView.text = longitude.toString()
+//        val alamat = findViewById<TextView>(R.id.test)
+//        Log.e("okay",alamat.toString())
         globalLatitude=latitude
         globalLongitude=longitude
+//        alamat.text = "Latitude: $latitude, Longitude: $longitude"
+
     }
 
     @SuppressLint("MissingPermission")
     private fun requestLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this,
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -206,8 +250,7 @@ class JemputActivity : AppCompatActivity() {
             return
         }
 
-        locationManager.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
             0, 0f, locationListener)
     }
 
@@ -221,13 +264,4 @@ class JemputActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        requestLocationUpdates()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        locationManager.removeUpdates(locationListener)
-    }
 }
