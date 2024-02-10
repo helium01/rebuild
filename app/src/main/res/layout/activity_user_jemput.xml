@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Form Penjemputan Sampah"
+                android:text="Form Pndaftaran Lapangan"
                 android:textSize="24sp"
                 android:textStyle="bold" />
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="pilih jenis sampah:"
+                android:text="pilih Tempat Lapangan:"
                 android:textSize="18sp"/>
 
             <Spinner

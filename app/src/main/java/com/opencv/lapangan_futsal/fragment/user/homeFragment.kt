@@ -80,7 +80,7 @@ class homeFragment : Fragment() {
         peta=view.findViewById(R.id.peta)
         list_bank=view.findViewById(R.id.list_bank)
 //        kategori=view.findViewById(R.id.kategori)
-        riwayat=view.findViewById(R.id.riwayat)
+//        riwayat=view.findViewById(R.id.riwayat)
         lokasi=view.findViewById(R.id.lihatsaya)
     }
     private fun setInitLayout() {
@@ -99,9 +99,9 @@ class homeFragment : Fragment() {
 //        kategori.setOnClickListener {
 //            startActivity(Intent(activity, KategoriActivity::class.java))
 //        }
-        riwayat.setOnClickListener {
-            startActivity(Intent(activity, RiwayatActivity::class.java))
-        }
+//        riwayat.setOnClickListener {
+//            startActivity(Intent(activity, RiwayatActivity::class.java))
+//        }
         lokasi.setOnClickListener {
             getLocation()
             Log.e("sini","sini")

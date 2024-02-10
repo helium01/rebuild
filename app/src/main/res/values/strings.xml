@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">e-Trash</string>
+    <string name="app_name">E-Lapangan</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -13,10 +13,10 @@
         <item>admin_outlite</item>
     </string-array>
     <string-array name="kategori_sampah">
-        <item>Pilih Kategori Sampah</item>
-        <item>Sampah Organik</item>
-        <item>Sampah Anorganik</item>
-        <item>Sampah Elektronik</item>
+        <item>Pilih Kategori Lapangan</item>
+        <item>Lapangan Biasa</item>
+        <item>Full Fasilitas</item>
+<!--        <item>Sampah Elektronik</item>-->
         <!-- Tambahkan kategori sampah lainnya di sini -->
     </string-array>
     <string name="title_activity_pencairan_outlite">Pencairan_Outlite_Activity</string>

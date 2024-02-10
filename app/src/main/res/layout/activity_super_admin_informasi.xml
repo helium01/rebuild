@@ -14,5 +14,73 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+
     </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tidak Terdapat Informasi"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Lokasi Lapangan Futsal -->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Lokasi: Jl. Merdeka No.10, Bandung"-->
+<!--                android:layout_marginBottom="" />-->
+
+<!--            &lt;!&ndash; Kapasitas &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Kapasitas: 200 Orang"-->
+<!--                android:marginBottom="8dp"/>-->
+
+<!--            &lt;!&ndash; Fasilitas &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Fasilitas:"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium"-->
+<!--                android:marginBottom="4dp"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="- Ruang Ganti"-->
+<!--                android:marginBottom="2dp"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="- Cafe & Restoran"-->
+<!--                android:marginBottom="2dp"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="- Penyewaan Perlengkapan Futsal"-->
+<!--                android:marginBottom="2dp"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="- Area Parkir Luas"-->
+<!--                android:marginBottom="8dp"/>-->
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

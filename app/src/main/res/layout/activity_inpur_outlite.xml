@@ -9,7 +9,7 @@
         android:id="@+id/login_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Daftarkan Outlite Anda"
+        android:text="Daftarkan Lapangan Anda"
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
@@ -27,7 +27,7 @@
             android:id="@+id/txt_nama_outlite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Outlite"
+            android:hint="Nama Lapangan"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:layout_marginBottom="20dp"
