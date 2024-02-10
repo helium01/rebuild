@@ -14,7 +14,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:rotation="-45"
-        android:text="Silahkan menunggu aktivasi dari admin bank sampah"
+        android:text="Silahkan menunggu aktivasi dari admin lapangan futsal"
         android:textSize="18sp"
         android:textStyle="italic"
         tools:ignore="HardcodedText" />

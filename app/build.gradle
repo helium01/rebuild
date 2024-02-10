@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.opencv.bank_sampah'
+    namespace 'com.opencv.lapangan_futsal'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.opencv.bank_sampah"
+        applicationId "com.opencv.lapangan_futsal"
         minSdk 21
         targetSdk 33
         versionCode 1

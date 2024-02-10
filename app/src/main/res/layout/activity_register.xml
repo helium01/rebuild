@@ -10,7 +10,7 @@
         android:layout_height="179dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/ic_etrash_logo" />
+        android:src="@drawable/iconlapangan" />
 
     <TextView
         android:id="@+id/login_text"

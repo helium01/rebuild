@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Nama outlite: "/>
+            android:text="Nama lapangan: "/>
 
         <TextView
             android:id="@+id/textViewNamaOutlite"
